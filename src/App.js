@@ -28,8 +28,7 @@ const App = () => {
             <h3>Smart Expense Visualizer</h3>
           </header>
           <section className="transaction-input-section">
-           
-              <TransactionForm onAdd={handleAddTransaction} />
+           <TransactionForm onAdd={handleAddTransaction} />
           </section>
           <section className="summary-section">
               <VisualInsights transactions={transactions} />
