@@ -7,7 +7,7 @@
    app.use(express.json());
 
    // Connect to MongoDB
-   mongoose.connect('mongodb://localhost:27017/fintrackr')
+   mongoose.connect('mongodb+srv://finUser:finpass123@cluster0.xgm3wk3.mongodb.net/fintrackr?retryWrites=true&w=majority&appName=Cluster0')
        .then(() => console.log('MongoDB connected'))
        .catch(err => console.error('MongoDB connection error:', err));
 

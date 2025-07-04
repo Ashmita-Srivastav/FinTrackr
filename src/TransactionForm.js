@@ -9,13 +9,26 @@
        const [description, setDescription] = useState('');
 
        const handleSubmit = async (e) => {
-           e.preventDefault();
-           const newTransaction = { type, amount, category, description };
-           await axios.post('http://localhost:5000/api/transactions', newTransaction);
-           onAdd(newTransaction);
-           setAmount('');
-           setDescription('');
-       };
+    e.preventDefault();
+
+    const newTransaction = {
+        type,
+        amount: Number(amount),
+        category,
+        description
+    };
+
+    try {
+        const response = await axios.post('https://fintrackr-backend.vercel.app/api/transactions', newTransaction);
+        onAdd(response.data); // Use saved data from backend
+        setAmount('');
+        setDescription('');
+    } catch (error) {
+        console.error("Backend error:", error.response?.data || error.message);
+        alert(error.response?.data?.error || "Something went wrong while submitting the transaction.");
+    }
+};
+
 
        return (
            <form onSubmit={handleSubmit}>
@@ -38,7 +51,7 @@
                </select>
             </div>
             <div className="input-group">
-                <label for="description" class="input-label">Description</label>
+                <label for="description" className="input-label">Description</label>
                <input type="text" id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
             </div>
                <button className="add-button" type="submit">Add Transaction</button>
